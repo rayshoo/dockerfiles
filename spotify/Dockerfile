@@ -23,15 +23,15 @@ RUN	apt-get update && apt-get install -y \
 	alsa-utils \
 	libgl1-mesa-dri \
 	libgl1-mesa-glx \
+	libpulse0 \
 	spotify-client \
 	xdg-utils \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV HOME /home/spotify
-RUN useradd --create-home --home-dir $HOME spotify \
-	&& gpasswd -a spotify audio \
-	&& chown -R spotify:spotify $HOME
+RUN  groupmod -g 995 audio && groupmod -g 986 video && groupadd -g 1000 -r spotify && useradd -u 1000 --create-home --home-dir $HOME -g spotify -G audio,video spotify \
+     && chown -R spotify:spotify $HOME
 
 WORKDIR $HOME
 USER spotify

@@ -10,6 +10,7 @@ FROM debian:sid-slim
 LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
 RUN apt-get update && apt-get install -y \
+        iproute2 \
 	iptables \
 	libgl1-mesa-dri \
 	libgl1-mesa-glx \
@@ -19,6 +20,8 @@ RUN apt-get update && apt-get install -y \
 	qemu-kvm \
 	virtinst \
 	virt-viewer \
+        ebtables \
+        dnsmasq \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

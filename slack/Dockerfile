@@ -17,8 +17,8 @@
 FROM debian:jessie-slim
 LABEL maintainer "Jessie Frazelle <jess@linux.com>"
 
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
+ENV LC_ALL ko_KR.UTF-8
+ENV LANG ko_KR.UTF-8
 
 RUN apt-get update && apt-get install -y \
 	apt-transport-https \
@@ -29,9 +29,9 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-	&& locale-gen en_US.utf8 \
-	&& /usr/sbin/update-locale LANG=en_US.UTF-8
+RUN echo "ko_KR.UTF-8 UTF-8" >> /etc/locale.gen \
+	&& locale-gen ko_KR.utf8 \
+	&& /usr/sbin/update-locale LANG=ko_KR.UTF-8
 
 # Add the slack debian repo
 RUN curl -sSL https://packagecloud.io/slacktechnologies/slack/gpgkey | apt-key add -
@@ -43,6 +43,7 @@ RUN apt-get update && apt-get -y install \
 	libx11-xcb1 \
 	libxkbfile1 \
 	slack-desktop \
+	time \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 

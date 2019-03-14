@@ -51,8 +51,15 @@ RUN buildDeps=' \
 	&& curl -sSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add - \
 	&& echo "deb http://download.virtualbox.org/virtualbox/debian stretch contrib" >> /etc/apt/sources.list.d/virtualbox.list \
 	&& apt-get update && apt-get install -y \
-	virtualbox-5.2 \
+	virtualbox-6.0 \
 	--no-install-recommends \
 	&& apt-get purge -y --auto-remove $buildDeps
+
+# Add chrome user
+RUN groupadd -g 1000 -r vbox && useradd -u 1000 -r -g vbox vbox \
+    && mkdir -p '/home/vbox/VirtualBox VMs' && mkdir -p '/home/vbox/.config/VirtualBox' && chown -R vbox:vbox /home/vbox
+
+USER vbox
+WORKDIR /home/vbox
 
 ENTRYPOINT	[ "/usr/bin/virtualbox" ]

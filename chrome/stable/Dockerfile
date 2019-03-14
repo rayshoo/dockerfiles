@@ -58,8 +58,10 @@ RUN set -x \
 	&& apt-get purge -y --auto-remove curl
 
 # Add chrome user
-RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome \
+RUN groupmod -g 995 audio && groupmod -g 986 video && groupadd -g 1000 -r chrome && useradd -u 1000 -r -g chrome -G audio,video chrome \
     && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
+
+COPY .asoundrc /home/chrome/.asoundrc
 
 COPY local.conf /etc/fonts/local.conf
 

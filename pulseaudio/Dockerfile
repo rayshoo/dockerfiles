@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV HOME /home/pulseaudio
-RUN useradd --create-home --home-dir $HOME pulseaudio \
+RUN groupmod -g 995 audio && useradd -u 1000 --create-home --home-dir $HOME pulseaudio \
 	&& usermod -aG audio,pulse,pulse-access pulseaudio \
 	&& chown -R pulseaudio:pulseaudio $HOME
 
