@@ -88,7 +88,7 @@ get_latest_unifi() {
 
 compare() {
 	local name="$1" dir="$2" tag="$3" current="$4" releases="$5"
-	ignore_dirs=( "bazel" "mc" "rstudio" )
+	ignore_dirs=( "bazel" "mc" "rstudio" "zookeeper/3.5" )
 
 	if [[ "$tag" =~ $current ]] || [[ "$name" =~ $current ]] || [[ "$current" =~ $tag ]] || [[ "$current" == "master" ]]; then
 		echo -e "\\e[36m${dir}:\\e[39m current ${current} | ${tag} | ${name}"
@@ -125,7 +125,7 @@ mitmproxy/mitmproxy
 hashicorp/nomad
 zeit/now-cli
 nzbget/nzbget
-bitly/oauth2_proxy
+pusher/oauth2_proxy
 facebook/osquery
 hashicorp/packer
 Tautulli/Tautulli
