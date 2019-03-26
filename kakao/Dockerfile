@@ -1,3 +1,23 @@
+# Run Kakaotalk using wine
+#
+#	if [[ ! -d "${HOME}/.wine" ]]; then
+#		mkdir -p "${HOME}/.wine"
+#	fi
+#
+#	docker run -d \
+#		-e "GTK_IM_MODULE=uim" \
+#		-e "XMODIFIERS=@im=uim" \
+#		-e "QT_IM_MODULE=uim" \
+#		-e "DISPLAY=unix$DISPLAY" \
+#		-v /etc/localtime:/etc/localtime:ro \
+#		-v /tmp/.X11-unix:/tmp/.X11-unix \
+#		-v "$HOME/.wine:/home/wine/.wine" \
+#		--link pulseaudio:pulseaudio \
+#		-e PULSE_SERVER=pulseaudio \
+#		--hostname kakao \
+#		--name kakao \
+#		leoh0/kakao
+
 FROM ubuntu:18.04
 
 ENV WINEDEBUG -all
