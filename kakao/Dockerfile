@@ -45,6 +45,10 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
         && echo "ko_KR.UTF-8 UTF-8" >> /etc/locale.gen \
         && locale-gen
 
+RUN wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+        && chmod +x ./winetricks \
+		&& mv ./winetricks /usr/local/bin/
+
 RUN useradd -u 1000 -d /home/wine -m -s /bin/bash wine
 ENV HOME /home/wine
 WORKDIR /home/wine
