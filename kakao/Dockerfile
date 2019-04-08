@@ -18,42 +18,37 @@
 #		--name kakao \
 #		leoh0/kakao
 
-FROM ubuntu:18.04
+FROM alpine:3.9
 
-ENV WINEDEBUG -all
-ENV LANG ko_KR.UTF-8
-ENV LC_ALL ko_KR.UTF-8
-ENV DEBIAN_FRONTEND noninteractive
+RUN echo 'x86' > /etc/apk/arch && \
+        apk --no-cache add \
+        ca-certificates \
+        wget \
+        wine \
+        zenity
 
-# If you build winetricks package then you need to add zenity package
-RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
-        && dpkg --add-architecture i386 \
-        && apt-get update \
-        && apt-get install -y --no-install-recommends \
-                wine32 \
-                wine-stable \
-                cabextract \
-                locales \
-                fontconfig \
-                fonts-nanum* \
-                msttcorefonts \
-                zenity \
-                wget \
-        && apt-get clean \
-        && rm -rf /var/lib/apt/lists/* \
-        && echo "en_US.UTF-8 UTF-8" >  /etc/locale.gen \
-        && echo "ko_KR.UTF-8 UTF-8" >> /etc/locale.gen \
-        && locale-gen
+RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
+        chmod +x ./winetricks && \
+		mv ./winetricks /usr/local/bin/
 
-RUN wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
-        && chmod +x ./winetricks \
-		&& mv ./winetricks /usr/local/bin/
+RUN mkdir -p /usr/share/fonts/NanumFont && \
+        cd /usr/share/fonts/ && \
+        wget http://cdn.naver.com/naver/NanumFont/fontfiles/NanumFont_TTF_ALL.zip && \
+        unzip NanumFont_TTF_ALL.zip -d NanumFont && \
+        rm -f NanumFont_TTF_ALL.zip
 
-RUN useradd -u 1000 -d /home/wine -m -s /bin/bash wine
-ENV HOME /home/wine
+ENV LANG=ko_KR.UTF-8 \
+    LANGUAGE=ko_KR.UTF-8 \
+    HOME=/home/wine
+
+RUN adduser -u 1000 -D wine && \
+    mkdir -p $HOME/.wine && \
+    chown -R wine.wine $HOME
+
 WORKDIR /home/wine
 USER wine
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+
