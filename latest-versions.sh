@@ -49,8 +49,6 @@ get_latest() {
 		dir="zookeeper/3.5"
 	elif [[ "$dir" == "oauth2_proxy" ]]; then
 		dir="oauth2-proxy"
-	elif [[ "$dir" == "now-cli" ]]; then
-		dir="now"
 	elif [[ "$dir" == "wireguard" ]]; then
 		dir="wireguard/install"
 	fi
@@ -88,7 +86,7 @@ get_latest_unifi() {
 
 compare() {
 	local name="$1" dir="$2" tag="$3" current="$4" releases="$5"
-	ignore_dirs=( "bazel" "mc" "rstudio" "zookeeper/3.5" )
+	ignore_dirs=( "mc" "zookeeper/3.5" )
 
 	if [[ "$tag" =~ $current ]] || [[ "$name" =~ $current ]] || [[ "$current" =~ $tag ]] || [[ "$current" == "master" ]]; then
 		echo -e "\\e[36m${dir}:\\e[39m current ${current} | ${tag} | ${name}"
@@ -103,9 +101,11 @@ compare() {
 
 projects=(
 iovisor/bcc
+iovisor/bpftrace
 browsh-org/browsh
 certbot/certbot
 cloudflare/cfssl
+quay/clair
 hashicorp/consul
 coredns/coredns
 CouchPotato/CouchPotatoServer
@@ -113,7 +113,6 @@ curl/curl
 kolide/fleet
 GoogleCloudPlatform/cloud-sdk-docker
 google/gitiles
-bazelbuild/bazel
 google/guetzli
 irssi/irssi
 cryptodotis/irssi-otr
@@ -123,13 +122,13 @@ MidnightCommander/mc
 zyedidia/micro
 mitmproxy/mitmproxy
 hashicorp/nomad
-zeit/now-cli
 nzbget/nzbget
 pusher/oauth2_proxy
 facebook/osquery
 hashicorp/packer
 Tautulli/Tautulli
 perkeep/perkeep
+pomerium/pomerium
 powershell/powershell
 Radarr/Radarr
 cesanta/docker_auth
@@ -146,10 +145,11 @@ hashicorp/terraform
 kdlucas/byte-unixbench
 mitchellh/vagrant
 hashicorp/vault
-v2tec/watchtower
+containrrr/watchtower
 wireguard/wireguard
 znc/znc
 apache/zookeeper
+tianon/gosu
 )
 
 other_projects=(
