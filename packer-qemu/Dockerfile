@@ -17,6 +17,7 @@ FROM hashicorp/packer:light
 LABEL maintainer "Eohyung Lee <liquidnuker@gmail.com>"
 
 RUN apk add --no-cache \
+    make \
     qemu \
     qemu-img \
     qemu-system-x86_64
