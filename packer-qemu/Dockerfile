@@ -20,4 +20,6 @@ RUN apk add --no-cache \
     make \
     qemu \
     qemu-img \
-    qemu-system-x86_64
+    qemu-system-x86_64 \
+    # Support UEFI
+    ovmf
