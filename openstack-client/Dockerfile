@@ -13,9 +13,9 @@ MAINTAINER Eohyung Lee <liquidnuker@gmail.com>
 # Alpine-based installation
 # #########################
 RUN apk add --update \
-  python-dev \
-  py-pip \
-  py-setuptools \
+  python3-dev \
+  py3-pip \
+  py3-setuptools \
   ca-certificates \
   gcc \
   libffi-dev \
@@ -25,6 +25,11 @@ RUN apk add --update \
   && pip install --upgrade --no-cache-dir \
      pip \
      setuptools \
+     python-cinderclient \
+     python-glanceclient \
+     python-keystoneclient \
+     python-neutronclient \
+     python-novaclient \
      python-openstackclient \
      python-designateclient \
   && apk del gcc musl-dev linux-headers libffi-dev \
